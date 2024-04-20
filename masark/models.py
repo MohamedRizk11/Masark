@@ -9,23 +9,26 @@ Status_type=(
 )
 
 class Users(models.Model):
-    ID=models.IntegerField(_("ID"),max_length=30)
-    Status=models.CharField(_("Status"),max_length=10,choices=Status_type)
+    id=models.IntegerField(_("ID"))
+    status=models.CharField(_("Status"),max_length=10,choices=Status_type)
 
     def __str__(self):
-        return self.ID
+        return self.id
 
 
 class Station(models.Model):
-    ID=models.IntegerField(_("ID"),max_length=30)
-    Name=models.CharField(_("Name"),max_length=20)
-    FamousPlaces=models.CharField(_("FamousPlaces"),max_length=50)
+    id = models.IntegerField(_("Id"))  # Renamed to lowercase 'id'
+    Name = models.CharField(_("Name"), max_length=20)
+    FamousPlaces = models.CharField(_("FamousPlaces"), max_length=50)
+    
     def __str__(self):
-        return self.Name    
+        return self.Name
+   
 
 class Ticket(models.Model):
-    StationID=models.ForeignKey("station",verbose_name=_("StationID"),related_name="ticket_station", on_delete=models.SET_NULL,null=True)
-    Cost=models.FloatField(_("Cost"),)
-    Time=models.FloatField(_("Time"),)    
+    StationID = models.ForeignKey("Station", verbose_name=_("StationID"), related_name="ticket_station", on_delete=models.SET_NULL, null=True)
+    Cost = models.FloatField(_("Cost"))
+    Time = models.FloatField(_("Time"))
+
     def __str__(self):
-        return self.StationID
+        return str(self.StationID)  # Ensure to return a string representation
